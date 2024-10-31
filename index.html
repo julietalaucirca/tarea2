@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Julieta Laucirica">
+
+<title>Actividad N°2- Programación en R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="index_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="index_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="index_files/libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="index_files/libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="index_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="index_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="index_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="index_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+<script src="index_files/libs/plotly-locale-es-2.11.1/es.js"></script>
+
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#utilización-de-las-herramientas-tidyverse-y-plotly-para-graficar-datos" id="toc-utilización-de-las-herramientas-tidyverse-y-plotly-para-graficar-datos" class="nav-link active" data-scroll-target="#utilización-de-las-herramientas-tidyverse-y-plotly-para-graficar-datos">Utilización de las herramientas Tidyverse y Plotly para graficar datos</a>
+  <ul class="collapse">
+  <li><a href="#paquetes-utilizados" id="toc-paquetes-utilizados" class="nav-link" data-scroll-target="#paquetes-utilizados">Paquetes utilizados</a></li>
+  <li><a href="#gráfico-de-datos" id="toc-gráfico-de-datos" class="nav-link" data-scroll-target="#gráfico-de-datos">Gráfico de datos</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Actividad N°2- Programación en R</h1>
+<p class="subtitle lead">Curso PF 0953-01</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julieta Laucirica </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="utilización-de-las-herramientas-tidyverse-y-plotly-para-graficar-datos" class="level2">
+<h2 class="anchored" data-anchor-id="utilización-de-las-herramientas-tidyverse-y-plotly-para-graficar-datos">Utilización de las herramientas Tidyverse y Plotly para graficar datos</h2>
+<section id="paquetes-utilizados" class="level3">
+<h3 class="anchored" data-anchor-id="paquetes-utilizados">Paquetes utilizados</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"plotly"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"DT"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"scales"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"hrbrthemes"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (<span class="st">"ggthemes"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span> (<span class="st">"airquality"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"HairEyeColor"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="gráfico-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="gráfico-de-datos">Gráfico de datos</h3>
+<section id="gráfico-de-dispersión-con-el-paquete-de-datos-airquality" class="level4">
+<h4 class="anchored" data-anchor-id="gráfico-de-dispersión-con-el-paquete-de-datos-airquality">Gráfico de dispersión con el paquete de datos airquality</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de dispersión de Ozono y Temperatura</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>grafico_dispersion <span class="ot">&lt;-</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> airquality <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp , <span class="at">y =</span> Ozone, <span class="at">color =</span> Month)) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="fu">aes</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">text =</span> <span class="fu">paste0</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Temperatura F° "</span>, Temp, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Ozono (ppb) "</span>, Ozone</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="cn">NA</span>))<span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Cantidades de ozono vs Temperatura "</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Temperatura (F°)"</span>) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Cantidades de ozono (ppb)"</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Fuentes: paquetes de datos R"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Mes"</span>) <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Mes del año"</span>) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum_ps</span>() <span class="co"># estilo de hrbrthemes</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico plotly</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(grafico_dispersion, <span class="at">tooltip =</span> <span class="st">"text"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">config</span>(<span class="at">locale =</span> <span class="st">'es'</span>) <span class="co"># para mostrar los controles en español</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-b45fb5800a7fc2c4c303" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-b45fb5800a7fc2c4c303">{"x":{"data":[{"x":[67,72,74,62,56,66,65,59,61,69,74,69,66,68,58,64,66,57,68,62,59,73,61,61,57,58,57,67,81,79,76,78,74,67,84,85,79,82,87,90,87,93,92,82,80,79,77,72,65,73,76,77,76,76,76,75,78,73,80,77,83,84,85,81,84,83,83,88,92,92,89,82,73,81,91,80,81,82,84,87,85,74,81,82,86,85,82,86,88,86,83,81,81,81,82,86,85,87,89,90,90,92,86,86,82,80,79,77,79,76,78,78,77,72,75,79,81,86,88,97,94,96,94,91,92,93,93,87,84,80,78,75,73,81,76,77,71,71,78,67,76,68,82,64,71,81,69,63,70,77,75,76,68],"y":[41,36,12,18,null,28,23,19,8,null,7,16,11,14,18,14,34,6,30,11,1,11,4,32,null,null,null,23,45,115,37,null,null,null,null,null,null,29,null,71,39,null,null,23,null,null,21,37,20,12,13,null,null,null,null,null,null,null,null,null,null,135,49,32,null,64,40,77,97,97,85,null,10,27,null,7,48,35,61,79,63,16,null,null,80,108,20,52,82,50,64,59,39,9,16,78,35,66,122,89,110,null,null,44,28,65,null,22,59,23,31,44,21,9,null,45,168,73,null,76,118,84,85,96,78,73,91,47,32,20,23,21,24,44,21,28,9,13,46,18,13,24,16,13,23,36,7,14,30,null,14,18,20],"text":["Temperatura F° 67<br />Ozono (ppb) 41","Temperatura F° 72<br />Ozono (ppb) 36","Temperatura F° 74<br />Ozono (ppb) 12","Temperatura F° 62<br />Ozono (ppb) 18","Temperatura F° 56<br />Ozono (ppb) NA","Temperatura F° 66<br />Ozono (ppb) 28","Temperatura F° 65<br />Ozono (ppb) 23","Temperatura F° 59<br />Ozono (ppb) 19","Temperatura F° 61<br />Ozono (ppb) 8","Temperatura F° 69<br />Ozono (ppb) NA","Temperatura F° 74<br />Ozono (ppb) 7","Temperatura F° 69<br />Ozono (ppb) 16","Temperatura F° 66<br />Ozono (ppb) 11","Temperatura F° 68<br />Ozono (ppb) 14","Temperatura F° 58<br />Ozono (ppb) 18","Temperatura F° 64<br />Ozono (ppb) 14","Temperatura F° 66<br />Ozono (ppb) 34","Temperatura F° 57<br />Ozono (ppb) 6","Temperatura F° 68<br />Ozono (ppb) 30","Temperatura F° 62<br />Ozono (ppb) 11","Temperatura F° 59<br />Ozono (ppb) 1","Temperatura F° 73<br />Ozono (ppb) 11","Temperatura F° 61<br />Ozono (ppb) 4","Temperatura F° 61<br />Ozono (ppb) 32","Temperatura F° 57<br />Ozono (ppb) NA","Temperatura F° 58<br />Ozono (ppb) NA","Temperatura F° 57<br />Ozono (ppb) NA","Temperatura F° 67<br />Ozono (ppb) 23","Temperatura F° 81<br />Ozono (ppb) 45","Temperatura F° 79<br />Ozono (ppb) 115","Temperatura F° 76<br />Ozono (ppb) 37","Temperatura F° 78<br />Ozono (ppb) NA","Temperatura F° 74<br />Ozono (ppb) NA","Temperatura F° 67<br />Ozono (ppb) NA","Temperatura F° 84<br />Ozono (ppb) NA","Temperatura F° 85<br />Ozono (ppb) NA","Temperatura F° 79<br />Ozono (ppb) NA","Temperatura F° 82<br />Ozono (ppb) 29","Temperatura F° 87<br />Ozono (ppb) NA","Temperatura F° 90<br />Ozono (ppb) 71","Temperatura F° 87<br />Ozono (ppb) 39","Temperatura F° 93<br />Ozono (ppb) NA","Temperatura F° 92<br />Ozono (ppb) NA","Temperatura F° 82<br />Ozono (ppb) 23","Temperatura F° 80<br />Ozono (ppb) NA","Temperatura F° 79<br />Ozono (ppb) NA","Temperatura F° 77<br />Ozono (ppb) 21","Temperatura F° 72<br />Ozono (ppb) 37","Temperatura F° 65<br />Ozono (ppb) 20","Temperatura F° 73<br />Ozono (ppb) 12","Temperatura F° 76<br />Ozono (ppb) 13","Temperatura F° 77<br />Ozono (ppb) NA","Temperatura F° 76<br />Ozono (ppb) NA","Temperatura F° 76<br />Ozono (ppb) NA","Temperatura F° 76<br />Ozono (ppb) NA","Temperatura F° 75<br />Ozono (ppb) NA","Temperatura F° 78<br />Ozono (ppb) NA","Temperatura F° 73<br />Ozono (ppb) NA","Temperatura F° 80<br />Ozono (ppb) NA","Temperatura F° 77<br />Ozono (ppb) NA","Temperatura F° 83<br />Ozono (ppb) NA","Temperatura F° 84<br />Ozono (ppb) 135","Temperatura F° 85<br />Ozono (ppb) 49","Temperatura F° 81<br />Ozono (ppb) 32","Temperatura F° 84<br />Ozono (ppb) NA","Temperatura F° 83<br />Ozono (ppb) 64","Temperatura F° 83<br />Ozono (ppb) 40","Temperatura F° 88<br />Ozono (ppb) 77","Temperatura F° 92<br />Ozono (ppb) 97","Temperatura F° 92<br />Ozono (ppb) 97","Temperatura F° 89<br />Ozono (ppb) 85","Temperatura F° 82<br />Ozono (ppb) NA","Temperatura F° 73<br />Ozono (ppb) 10","Temperatura F° 81<br />Ozono (ppb) 27","Temperatura F° 91<br />Ozono (ppb) NA","Temperatura F° 80<br />Ozono (ppb) 7","Temperatura F° 81<br />Ozono (ppb) 48","Temperatura F° 82<br />Ozono (ppb) 35","Temperatura F° 84<br />Ozono (ppb) 61","Temperatura F° 87<br />Ozono (ppb) 79","Temperatura F° 85<br />Ozono (ppb) 63","Temperatura F° 74<br />Ozono (ppb) 16","Temperatura F° 81<br />Ozono (ppb) NA","Temperatura F° 82<br />Ozono (ppb) NA","Temperatura F° 86<br />Ozono (ppb) 80","Temperatura F° 85<br />Ozono (ppb) 108","Temperatura F° 82<br />Ozono (ppb) 20","Temperatura F° 86<br />Ozono (ppb) 52","Temperatura F° 88<br />Ozono (ppb) 82","Temperatura F° 86<br />Ozono (ppb) 50","Temperatura F° 83<br />Ozono (ppb) 64","Temperatura F° 81<br />Ozono (ppb) 59","Temperatura F° 81<br />Ozono (ppb) 39","Temperatura F° 81<br />Ozono (ppb) 9","Temperatura F° 82<br />Ozono (ppb) 16","Temperatura F° 86<br />Ozono (ppb) 78","Temperatura F° 85<br />Ozono (ppb) 35","Temperatura F° 87<br />Ozono (ppb) 66","Temperatura F° 89<br />Ozono (ppb) 122","Temperatura F° 90<br />Ozono (ppb) 89","Temperatura F° 90<br />Ozono (ppb) 110","Temperatura F° 92<br />Ozono (ppb) NA","Temperatura F° 86<br />Ozono (ppb) NA","Temperatura F° 86<br />Ozono (ppb) 44","Temperatura F° 82<br />Ozono (ppb) 28","Temperatura F° 80<br />Ozono (ppb) 65","Temperatura F° 79<br />Ozono (ppb) NA","Temperatura F° 77<br />Ozono (ppb) 22","Temperatura F° 79<br />Ozono (ppb) 59","Temperatura F° 76<br />Ozono (ppb) 23","Temperatura F° 78<br />Ozono (ppb) 31","Temperatura F° 78<br />Ozono (ppb) 44","Temperatura F° 77<br />Ozono (ppb) 21","Temperatura F° 72<br />Ozono (ppb) 9","Temperatura F° 75<br />Ozono (ppb) NA","Temperatura F° 79<br />Ozono (ppb) 45","Temperatura F° 81<br />Ozono (ppb) 168","Temperatura F° 86<br />Ozono (ppb) 73","Temperatura F° 88<br />Ozono (ppb) NA","Temperatura F° 97<br />Ozono (ppb) 76","Temperatura F° 94<br />Ozono (ppb) 118","Temperatura F° 96<br />Ozono (ppb) 84","Temperatura F° 94<br />Ozono (ppb) 85","Temperatura F° 91<br />Ozono (ppb) 96","Temperatura F° 92<br />Ozono (ppb) 78","Temperatura F° 93<br />Ozono (ppb) 73","Temperatura F° 93<br />Ozono (ppb) 91","Temperatura F° 87<br />Ozono (ppb) 47","Temperatura F° 84<br />Ozono (ppb) 32","Temperatura F° 80<br />Ozono (ppb) 20","Temperatura F° 78<br />Ozono (ppb) 23","Temperatura F° 75<br />Ozono (ppb) 21","Temperatura F° 73<br />Ozono (ppb) 24","Temperatura F° 81<br />Ozono (ppb) 44","Temperatura F° 76<br />Ozono (ppb) 21","Temperatura F° 77<br />Ozono (ppb) 28","Temperatura F° 71<br />Ozono (ppb) 9","Temperatura F° 71<br />Ozono (ppb) 13","Temperatura F° 78<br />Ozono (ppb) 46","Temperatura F° 67<br />Ozono (ppb) 18","Temperatura F° 76<br />Ozono (ppb) 13","Temperatura F° 68<br />Ozono (ppb) 24","Temperatura F° 82<br />Ozono (ppb) 16","Temperatura F° 64<br />Ozono (ppb) 13","Temperatura F° 71<br />Ozono (ppb) 23","Temperatura F° 81<br />Ozono (ppb) 36","Temperatura F° 69<br />Ozono (ppb) 7","Temperatura F° 63<br />Ozono (ppb) 14","Temperatura F° 70<br />Ozono (ppb) 30","Temperatura F° 77<br />Ozono (ppb) NA","Temperatura F° 75<br />Ozono (ppb) 14","Temperatura F° 76<br />Ozono (ppb) 18","Temperatura F° 68<br />Ozono (ppb) 20"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":["rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)"],"opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":["rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(19,43,67,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(34,73,108,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(51,106,152,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(68,141,198,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)","rgba(86,177,247,1)"]}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[50],"y":[0],"name":"b95672c32fb6285d48c22c1005e5dfde","type":"scatter","mode":"markers","opacity":0,"hoverinfo":"skip","showlegend":false,"marker":{"color":[0,1],"colorscale":[[0,"#132B43"],[0.0033444816053511683,"#132B44"],[0.0066889632107023367,"#132C44"],[0.010033444816053505,"#142C45"],[0.013377926421404673,"#142D45"],[0.016722408026755842,"#142D46"],[0.02006688963210701,"#142D46"],[0.023411371237458178,"#142E47"],[0.026755852842809347,"#152E47"],[0.030100334448160515,"#152F48"],[0.033444816053511683,"#152F48"],[0.036789297658862852,"#152F49"],[0.04013377926421402,"#153049"],[0.043478260869565188,"#16304A"],[0.046822742474916357,"#16304A"],[0.050167224080267525,"#16314B"],[0.053511705685618693,"#16314B"],[0.056856187290969862,"#16324C"],[0.06020066889632103,"#17324D"],[0.063545150501672198,"#17324D"],[0.066889632107023367,"#17334E"],[0.070234113712374535,"#17334E"],[0.073578595317725703,"#17344F"],[0.076923076923076872,"#18344F"],[0.08026755852842804,"#183450"],[0.083612040133779209,"#183550"],[0.086956521739130377,"#183551"],[0.090301003344481545,"#183651"],[0.093645484949832714,"#193652"],[0.096989966555183882,"#193652"],[0.10033444816053505,"#193753"],[0.10367892976588622,"#193754"],[0.10702341137123739,"#193854"],[0.11036789297658856,"#1A3855"],[0.11371237458193972,"#1A3955"],[0.11705685618729089,"#1A3956"],[0.12040133779264206,"#1A3956"],[0.12374581939799323,"#1A3A57"],[0.1270903010033444,"#1B3A57"],[0.13043478260869557,"#1B3B58"],[0.13377926421404673,"#1B3B59"],[0.1371237458193979,"#1B3B59"],[0.14046822742474907,"#1C3C5A"],[0.14381270903010024,"#1C3C5A"],[0.14715719063545141,"#1C3D5B"],[0.1505016722408028,"#1C3D5B"],[0.15384615384615374,"#1C3D5C"],[0.15719063545150513,"#1D3E5C"],[0.16053511705685608,"#1D3E5D"],[0.16387959866220747,"#1D3F5D"],[0.16722408026755842,"#1D3F5E"],[0.17056856187290981,"#1D3F5F"],[0.17391304347826075,"#1E405F"],[0.17725752508361214,"#1E4060"],[0.18060200668896309,"#1E4160"],[0.18394648829431448,"#1E4161"],[0.18729096989966543,"#1E4261"],[0.19063545150501682,"#1F4262"],[0.19397993311036799,"#1F4263"],[0.19732441471571915,"#1F4363"],[0.20066889632107032,"#1F4364"],[0.20401337792642149,"#1F4464"],[0.20735785953177266,"#204465"],[0.21070234113712383,"#204465"],[0.214046822742475,"#204566"],[0.21739130434782616,"#204566"],[0.22073578595317733,"#214667"],[0.2240802675585285,"#214668"],[0.22742474916387967,"#214768"],[0.23076923076923084,"#214769"],[0.23411371237458201,"#214769"],[0.23745819397993317,"#22486A"],[0.24080267558528434,"#22486A"],[0.24414715719063551,"#22496B"],[0.24749163879598668,"#22496C"],[0.25083612040133785,"#224A6C"],[0.25418060200668902,"#234A6D"],[0.25752508361204018,"#234A6D"],[0.26086956521739135,"#234B6E"],[0.26421404682274252,"#234B6E"],[0.26755852842809369,"#244C6F"],[0.27090301003344486,"#244C70"],[0.27424749163879603,"#244C70"],[0.27759197324414719,"#244D71"],[0.28093645484949836,"#244D71"],[0.28428093645484953,"#254E72"],[0.2876254180602007,"#254E72"],[0.29096989966555187,"#254F73"],[0.29431438127090304,"#254F74"],[0.2976588628762542,"#254F74"],[0.30100334448160537,"#265075"],[0.30434782608695654,"#265075"],[0.30769230769230771,"#265176"],[0.31103678929765888,"#265176"],[0.31438127090301005,"#275277"],[0.31772575250836121,"#275278"],[0.32107023411371238,"#275278"],[0.32441471571906355,"#275379"],[0.32775919732441472,"#275379"],[0.33110367892976589,"#28547A"],[0.33444816053511706,"#28547B"],[0.33779264214046822,"#28557B"],[0.34113712374581939,"#28557C"],[0.34448160535117056,"#28567C"],[0.34782608695652173,"#29567D"],[0.3511705685618729,"#29567D"],[0.35451505016722407,"#29577E"],[0.35785953177257523,"#29577F"],[0.3612040133779264,"#2A587F"],[0.36454849498327757,"#2A5880"],[0.36789297658862874,"#2A5980"],[0.37123745819397991,"#2A5981"],[0.37458193979933108,"#2A5982"],[0.37792642140468224,"#2B5A82"],[0.38127090301003341,"#2B5A83"],[0.38461538461538458,"#2B5B83"],[0.38795986622073575,"#2B5B84"],[0.39130434782608692,"#2C5C85"],[0.39464882943143809,"#2C5C85"],[0.39799331103678925,"#2C5D86"],[0.40133779264214042,"#2C5D86"],[0.40468227424749159,"#2C5D87"],[0.40802675585284276,"#2D5E87"],[0.41137123745819393,"#2D5E88"],[0.4147157190635451,"#2D5F89"],[0.41806020066889626,"#2D5F89"],[0.42140468227424743,"#2E608A"],[0.4247491638795986,"#2E608A"],[0.42809364548494977,"#2E618B"],[0.43143812709030094,"#2E618C"],[0.43478260869565211,"#2E618C"],[0.43812709030100327,"#2F628D"],[0.44147157190635444,"#2F628D"],[0.44481605351170561,"#2F638E"],[0.44816053511705678,"#2F638F"],[0.45150501672240795,"#30648F"],[0.45484949832775912,"#306490"],[0.45819397993311028,"#306590"],[0.46153846153846145,"#306591"],[0.46488294314381262,"#306592"],[0.46822742474916379,"#316692"],[0.47157190635451496,"#316693"],[0.47491638795986635,"#316793"],[0.47826086956521729,"#316794"],[0.48160535117056869,"#326895"],[0.48494983277591963,"#326895"],[0.48829431438127102,"#326996"],[0.49163879598662197,"#326996"],[0.49498327759197336,"#326997"],[0.4983277591973243,"#336A98"],[0.5016722408026757,"#336A98"],[0.50501672240802664,"#336B99"],[0.50836120401337803,"#336B99"],[0.51170568561872898,"#346C9A"],[0.51505016722408037,"#346C9B"],[0.51839464882943131,"#346D9B"],[0.52173913043478271,"#346D9C"],[0.52508361204013365,"#346E9D"],[0.52842809364548504,"#356E9D"],[0.53177257525083599,"#356E9E"],[0.53511705685618738,"#356F9E"],[0.53846153846153832,"#356F9F"],[0.54180602006688972,"#3670A0"],[0.54515050167224066,"#3670A0"],[0.54849498327759205,"#3671A1"],[0.551839464882943,"#3671A1"],[0.55518394648829439,"#3772A2"],[0.55852842809364533,"#3772A3"],[0.56187290969899673,"#3773A3"],[0.56521739130434767,"#3773A4"],[0.56856187290969906,"#3773A4"],[0.57190635451505001,"#3874A5"],[0.5752508361204014,"#3874A6"],[0.57859531772575234,"#3875A6"],[0.58193979933110374,"#3875A7"],[0.58528428093645468,"#3976A8"],[0.58862876254180607,"#3976A8"],[0.59197324414715702,"#3977A9"],[0.59531772575250841,"#3977A9"],[0.59866220735785936,"#3978AA"],[0.60200668896321075,"#3A78AB"],[0.60535117056856191,"#3A79AB"],[0.60869565217391308,"#3A79AC"],[0.61204013377926425,"#3A79AC"],[0.61538461538461542,"#3B7AAD"],[0.61872909698996659,"#3B7AAE"],[0.62207357859531776,"#3B7BAE"],[0.62541806020066892,"#3B7BAF"],[0.62876254180602009,"#3C7CB0"],[0.63210702341137126,"#3C7CB0"],[0.63545150501672243,"#3C7DB1"],[0.6387959866220736,"#3C7DB1"],[0.64214046822742477,"#3C7EB2"],[0.64548494983277593,"#3D7EB3"],[0.6488294314381271,"#3D7FB3"],[0.65217391304347827,"#3D7FB4"],[0.65551839464882944,"#3D7FB5"],[0.65886287625418061,"#3E80B5"],[0.66220735785953178,"#3E80B6"],[0.66555183946488294,"#3E81B6"],[0.66889632107023411,"#3E81B7"],[0.67224080267558528,"#3F82B8"],[0.67558528428093645,"#3F82B8"],[0.67892976588628762,"#3F83B9"],[0.68227424749163879,"#3F83BA"],[0.68561872909698995,"#4084BA"],[0.68896321070234112,"#4084BB"],[0.69230769230769229,"#4085BB"],[0.69565217391304346,"#4085BC"],[0.69899665551839463,"#4086BD"],[0.7023411371237458,"#4186BD"],[0.70568561872909696,"#4186BE"],[0.70903010033444813,"#4187BF"],[0.7123745819397993,"#4187BF"],[0.71571906354515047,"#4288C0"],[0.71906354515050164,"#4288C1"],[0.72240802675585281,"#4289C1"],[0.72575250836120397,"#4289C2"],[0.72909698996655514,"#438AC2"],[0.73244147157190631,"#438AC3"],[0.73578595317725748,"#438BC4"],[0.73913043478260865,"#438BC4"],[0.74247491638795982,"#438CC5"],[0.74581939799331098,"#448CC6"],[0.74916387959866215,"#448DC6"],[0.7525083612040131,"#448DC7"],[0.75585284280936449,"#448EC8"],[0.75919732441471588,"#458EC8"],[0.76254180602006683,"#458FC9"],[0.76588628762541777,"#458FC9"],[0.76923076923076916,"#458FCA"],[0.77257525083612055,"#4690CB"],[0.7759197324414715,"#4690CB"],[0.77926421404682289,"#4691CC"],[0.78260869565217384,"#4691CD"],[0.78595317725752523,"#4792CD"],[0.78929765886287617,"#4792CE"],[0.79264214046822756,"#4793CF"],[0.79598662207357851,"#4793CF"],[0.7993311036789299,"#4894D0"],[0.80267558528428085,"#4894D0"],[0.80602006688963224,"#4895D1"],[0.80936454849498318,"#4895D2"],[0.81270903010033457,"#4896D2"],[0.81605351170568552,"#4996D3"],[0.81939799331103691,"#4997D4"],[0.82274247491638786,"#4997D4"],[0.82608695652173925,"#4998D5"],[0.82943143812709019,"#4A98D6"],[0.83277591973244158,"#4A99D6"],[0.83612040133779253,"#4A99D7"],[0.83946488294314392,"#4A9AD8"],[0.84280936454849487,"#4B9AD8"],[0.84615384615384626,"#4B9BD9"],[0.8494983277591972,"#4B9BDA"],[0.85284280936454859,"#4B9BDA"],[0.85618729096989954,"#4C9CDB"],[0.85953177257525093,"#4C9CDB"],[0.86287625418060188,"#4C9DDC"],[0.86622073578595327,"#4C9DDD"],[0.86956521739130421,"#4D9EDD"],[0.8729096989966556,"#4D9EDE"],[0.87625418060200655,"#4D9FDF"],[0.87959866220735794,"#4D9FDF"],[0.88294314381270889,"#4DA0E0"],[0.88628762541806028,"#4EA0E1"],[0.88963210702341122,"#4EA1E1"],[0.89297658862876261,"#4EA1E2"],[0.89632107023411356,"#4EA2E3"],[0.89966555183946495,"#4FA2E3"],[0.9030100334448159,"#4FA3E4"],[0.90635451505016729,"#4FA3E5"],[0.90969899665551823,"#4FA4E5"],[0.91304347826086962,"#50A4E6"],[0.91638795986622057,"#50A5E7"],[0.91973244147157196,"#50A5E7"],[0.92307692307692291,"#50A6E8"],[0.9264214046822743,"#51A6E8"],[0.92976588628762524,"#51A7E9"],[0.93311036789297663,"#51A7EA"],[0.93645484949832758,"#51A8EA"],[0.93979933110367897,"#52A8EB"],[0.94314381270902992,"#52A9EC"],[0.94648829431438131,"#52A9EC"],[0.9498327759197327,"#52AAED"],[0.95317725752508364,"#53AAEE"],[0.95652173913043459,"#53ABEE"],[0.95986622073578598,"#53ABEF"],[0.96321070234113737,"#53ACF0"],[0.96655518394648832,"#54ACF0"],[0.96989966555183926,"#54ADF1"],[0.97324414715719065,"#54ADF2"],[0.97658862876254204,"#54AEF2"],[0.97993311036789299,"#55AEF3"],[0.98327759197324394,"#55AFF4"],[0.98662207357859533,"#55AFF4"],[0.98996655518394672,"#55B0F5"],[0.99331103678929766,"#56B0F6"],[0.99665551839464861,"#56B1F6"],[1,"#56B1F7"]],"colorbar":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"thickness":23.039999999999996,"title":"Mes del año","titlefont":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":15.276048152760483},"tickmode":"array","ticktext":["5","6","7","8","9"],"tickvals":[0.0016666666666666668,0.2508333333333333,0.49999999999999994,0.74916666666666665,0.99833333333333329],"tickfont":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":12.220838522208389},"ticklen":2,"len":0.5}},"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":95.701120797011214,"r":39.850560398505614,"b":83.520132835201338,"l":73.55749273557494},"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":15.276048152760483},"title":{"text":"Cantidades de ozono vs Temperatura ","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans-Bold","size":23.910336239103366},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[47.649999999999999,99.349999999999994],"tickmode":"array","ticktext":["50","60","70","80","90"],"tickvals":[50,60,70,80,90],"categoryorder":"array","categoryarray":["50","60","70","80","90"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":{"text":"Temperatura (F°)","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-8.4000000000000004,176.40000000000001],"tickmode":"array","ticktext":["0","50","100","150"],"tickvals":[0,50,99.999999999999986,150],"categoryorder":"array","categoryarray":["0","50","100","150"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"Cantidades de ozono (ppb)","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":12.220838522208389},"title":{"text":"Mes del año","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":15.276048152760483}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"es"},"source":"A","attrs":{"5b382baf2358":{"x":{},"y":{},"colour":{},"text":{},"type":"scatter"}},"cur_data":"5b382baf2358","visdat":{"5b382baf2358":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Análisis de gráfico de dispersión de Temperatura (F) y Ozono (U.D)</li>
+</ul>
+<p>Se observa una relación lineal entre ambas variables, ya que a medida que aumenta la temperatura, se ve una mayor concentración de ozono.</p>
+<p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBP9hChFpv1z9vveC6pt_IxwFXr8Wktt7xFw&amp;s.png" class="img-fluid"></p>
+</section>
+<section id="gráfico-de-barras-con-el-paquete-de-datos-haireyecolor" class="level4">
+<h4 class="anchored" data-anchor-id="gráfico-de-barras-con-el-paquete-de-datos-haireyecolor">Gráfico de barras con el paquete de datos HairEyeColor</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertir HairEyeColor a data.frame</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hair_eye_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(HairEyeColor)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de barras con conteo de personas según color de pelo</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>barras_ggplot2_haireyecolor <span class="ot">&lt;-</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  hair_eye_df <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_infreq</span>(Hair), <span class="at">y =</span> Freq)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"identity"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">text =</span> <span class="fu">paste0</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Color de pelo: "</span>, Hair, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Cantidad: "</span>, Freq</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"bisque3"</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Cantidad de personas según color de pelo"</span>) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Color de pelo"</span>) <span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Número de personas"</span>) <span class="sc">+</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">"Fuente: paquete de datos R"</span>) <span class="sc">+</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum_ps</span>()</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de barras interactivo con plotly</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(barras_ggplot2_haireyecolor, <span class="at">tooltip =</span> <span class="st">"text"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">config</span>(<span class="at">locale =</span> <span class="st">'es'</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-42c2eed08f4e4396cf47" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-42c2eed08f4e4396cf47">{"x":{"data":[{"orientation":"v","width":[0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036,0.89999999999999991,0.90000000000000013,0.90000000000000036,0.90000000000000036],"base":[50,66,51,124,87,119,61,94,98,232,0,80,82,257,7,0,14,0,35,90,0,169,14,16,9,203,21,85,85,272,28,8],"x":[1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4],"y":[32,53,10,3,11,50,10,30,10,25,7,5,3,15,7,8,36,66,16,4,9,34,7,64,5,29,7,5,2,14,7,8],"text":["Color de pelo: Black<br />Cantidad: 32","Color de pelo: Brown<br />Cantidad: 53","Color de pelo: Red<br />Cantidad: 10","Color de pelo: Blond<br />Cantidad: 3","Color de pelo: Black<br />Cantidad: 11","Color de pelo: Brown<br />Cantidad: 50","Color de pelo: Red<br />Cantidad: 10","Color de pelo: Blond<br />Cantidad: 30","Color de pelo: Black<br />Cantidad: 10","Color de pelo: Brown<br />Cantidad: 25","Color de pelo: Red<br />Cantidad: 7","Color de pelo: Blond<br />Cantidad: 5","Color de pelo: Black<br />Cantidad: 3","Color de pelo: Brown<br />Cantidad: 15","Color de pelo: Red<br />Cantidad: 7","Color de pelo: Blond<br />Cantidad: 8","Color de pelo: Black<br />Cantidad: 36","Color de pelo: Brown<br />Cantidad: 66","Color de pelo: Red<br />Cantidad: 16","Color de pelo: Blond<br />Cantidad: 4","Color de pelo: Black<br />Cantidad: 9","Color de pelo: Brown<br />Cantidad: 34","Color de pelo: Red<br />Cantidad: 7","Color de pelo: Blond<br />Cantidad: 64","Color de pelo: Black<br />Cantidad: 5","Color de pelo: Brown<br />Cantidad: 29","Color de pelo: Red<br />Cantidad: 7","Color de pelo: Blond<br />Cantidad: 5","Color de pelo: Black<br />Cantidad: 2","Color de pelo: Brown<br />Cantidad: 14","Color de pelo: Red<br />Cantidad: 7","Color de pelo: Blond<br />Cantidad: 8"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(205,183,158,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":95.701120797011214,"r":39.850560398505614,"b":83.520132835201338,"l":73.55749273557494},"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":15.276048152760483},"title":{"text":"Cantidad de personas según color de pelo","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans-Bold","size":23.910336239103366},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,4.5999999999999996],"tickmode":"array","ticktext":["Black","Brown","Red","Blond"],"tickvals":[1,2,3,4],"categoryorder":"array","categoryarray":["Black","Brown","Red","Blond"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":{"text":"Color de pelo","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-14.300000000000001,300.30000000000001],"tickmode":"array","ticktext":["0","100","200","300"],"tickvals":[0,100,200,300],"categoryorder":"array","categoryarray":["0","100","200","300"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"Número de personas","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":12.220838522208389}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"es"},"source":"A","attrs":{"5b3845286f7b":{"x":{},"y":{},"text":{},"type":"bar"}},"cur_data":"5b3845286f7b","visdat":{"5b3845286f7b":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Gráfico de barras sobre la frecuencia de personas según su color de pelo</li>
+</ul>
+<p>Se observa que la mayor frecuencia está concentrada (por amplia mayoría) en personas con color de pelo café, seguido por el color rubio (aunque es amplia, también, la diferencia entre ambos)</p>
+<p><img src="https://img.freepik.com/fotos-premium/muestras-color-extension-cabello-salon-belleza-fines-recursos-humanos-concepto-salon-cabello-recursos-humanos-opciones-extension-pelo-servicios-salon-muestras-colores_864588-133187.jpg" class="img-fluid"></p>
+</section>
+<section id="grafico-de-pastel--porcentaje-de-color-de-ojos" class="level4">
+<h4 class="anchored" data-anchor-id="grafico-de-pastel--porcentaje-de-color-de-ojos">Grafico de pastel- Porcentaje de color de ojos</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: pastel_haireyecolor</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupar y resumir los datos por color de ojos</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>cantidad_color_ojos <span class="ot">&lt;-</span> hair_eye_df <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Eye) <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Eye_total =</span> <span class="fu">sum</span>(Freq))  <span class="co"># Sumar la columna Freq, que representa las frecuencias</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular porcentajes</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>porcentaje_color_ojos <span class="ot">&lt;-</span> cantidad_color_ojos <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Eye_Per =</span> <span class="fu">round</span>(Eye_total <span class="sc">/</span> <span class="fu">sum</span>(Eye_total) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>))  <span class="co"># Calcular porcentaje</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de pastel</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>pastel_colorojos <span class="ot">&lt;-</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(porcentaje_color_ojos, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> Eye_total, <span class="at">fill =</span> Eye)) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="dv">1</span>, <span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(Eye_Per, <span class="st">"%"</span>)),  </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.6</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span> </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Frecuencia en el color de ojos"</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">"Color de ojos"</span> ) <span class="sc">+</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Despliegue del gráfico</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>pastel_colorojos</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Gráfico pie sobre la frecuencia de personas según su color de ojos</li>
+</ul>
+<p>La mayor proporción de los datos se concentra entre los colores café y azul, estando bastante equiparados. El tercer lugar lo ocupan las personas con colores miel, aunque con amplia diferencia con los primeros dos, y por último la cantidad de personas con ojos color verde.</p>
+<p><img src="https://www.aao.org/image.axd?id=1d0e0577-34c8-4944-98f0-76c100663a3a&amp;t=636480897561800000" class="img-fluid"></p>
+</section>
+<section id="histograma-de-temperatura" class="level4">
+<h4 class="anchored" data-anchor-id="histograma-de-temperatura">Histograma de Temperatura</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: histograma_temperatura</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma ggplot2 de distribución de la temperatura</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>histograma_temp <span class="ot">&lt;-</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  airquality <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Temp)) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">after_stat</span>(count),  <span class="co"># Frecuencia en el eje Y</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">6</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"#FF7F50"</span>, </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#8B3E2F"</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  )  <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">labels =</span> comma, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Distribución de temperatura"</span>) <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Temperatura (F°)"</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Cantidad de días"</span>) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Junio-Septiembre"</span>, <span class="at">caption =</span> <span class="st">"Fuente: paquete de datos R"</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum_ps</span>()</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma plotly</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(histograma_temp, <span class="at">tooltip =</span> <span class="st">"x+y"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">config</span>(<span class="at">locale =</span> <span class="st">'es'</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-e423c5179892bc0e83ca" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-e423c5179892bc0e83ca">{"x":{"data":[{"orientation":"v","width":[null,10.400000000000006,10.400000000000006,10.399999999999977,10.400000000000006,10.400000000000006],"base":[0,0,0,0,0,0],"x":[null,52,62.400000000000006,72.800000000000011,83.200000000000003,93.600000000000009],"y":[0,4,21,49,60,19],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,80,1)","line":{"width":1.8897637795275593,"color":"rgba(139,62,47,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":95.701120797011214,"r":39.850560398505614,"b":83.520132835201338,"l":73.55749273557494},"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":15.276048152760483},"title":{"text":"Distribución de temperatura","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans-Bold","size":23.910336239103366},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[42.310000000000002,101.49000000000001],"tickmode":"array","ticktext":["60","80","100"],"tickvals":[60,80,100],"categoryorder":"array","categoryarray":["60","80","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":{"text":"Temperatura (F°)","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-5,105],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,24.999999999999996,50,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"IBMPlexSans","size":11.955168119551683},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"Cantidad de días","font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"IBMPlexSans","size":12.220838522208389}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"locale":"es"},"source":"A","attrs":{"5b383ebe517":{"x":{},"y":{},"type":"bar"}},"cur_data":"5b383ebe517","visdat":{"5b383ebe517":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<ul>
+<li>Histogramas de distribución de temperatura según cantidad de días</li>
+</ul>
+<p>Según este gráfico, de una muestra de 35 días, existe una mayoría de días con temperaturas alrededor de los 80°F (se podría decir entre 75°F y 85°F).</p>
+<p><img src="https://www.vacacionesnuevayork.com/wp-content/uploads/2023/07/nueva-york-verano-central-park.jpg" class="img-fluid"></p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
